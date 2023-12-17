@@ -2,8 +2,10 @@ import React from "react";
 import Image from "next/image";
 import products from "@/json/products-details.json";
 import { FaStar } from "react-icons/fa";
-
+import { GetStaticPaths } from 'next';
+import {useRouter} from 'next/router'
 const Index = () => {
+  const router=useRouter();
   return (
     <div className={`py-[15px] w-[90%] mx-auto max-w-[1300px] `}>
       <p className="text-sm font-[500] mb-[20px] ">Products</p>
@@ -11,6 +13,9 @@ const Index = () => {
         {products?.map((product: any, index: any) => {
           return (
             <div
+            onClick={()=>{
+              router?.push(`/products/${product?.id}`)
+            }}
               key={index}
               className="bg-[#F7F5F2] shadow-lg w-full max-w-[390px] cursor-pointer rounded-md overflow-hidden mx-auto "
             >
@@ -26,7 +31,7 @@ const Index = () => {
                 <p className="text-[18px] leading-[28px] md:text-[16px] md:leading-[20px] mb-[5px] font-[500] text-ellipsis line-clamp-1">
                   {product?.title}
                 </p>
-                <p className="capitalize text-[10px] leading-[14px] px-[10px] py-[5px] ml-[-5px] text-[gray] w-fit border border-[#BA0018]/40 rounded-md mb-[5px]">
+                <p className="capitalize text-[10px] leading-[14px] px-[10px] py-[5px] text-[gray] w-fit border border-[#BA0018]/40 rounded-md mb-[5px]">
                   {product?.category}
                 </p>
                 <div className="flex items-center gap-x-[2px] mb-[5px] ">
@@ -42,7 +47,7 @@ const Index = () => {
                   <p className="line-through text-gray-500">{`$${product?.price}`}</p>
                   <p className="text-[#BA0018] ">{`(${product?.discountPercentage}% OFF)`}</p>
                 </div>
-                <p className="text-[18px] leading-[22px] mx-[-5px] xl:hover:bg-[#BA0018] xl:hover:text-white duration-300 ease-in-out border border-[#BA0018] rounded-md px-[10px] py-[10px] text-center " >Add to cart</p>
+                <p className="text-[14px] leading-[28px] xl:hover:bg-[#BA0018] xl:hover:text-white duration-300 w-fi ease-in-out border border-[#BA0018] rounded-md px-[10px] py-[5px] text-center " >Add to cart</p>
               </div>
             </div>
           );
@@ -51,5 +56,17 @@ const Index = () => {
     </div>
   );
 };
+
+export const getStaticPaths:GetStaticPaths= async ()=> {
+  const paths = products.map((product: any) => ({
+    params: {
+      id: product?.id.toString(),
+    },
+  })) || [];
+  return {
+    paths,
+    fallback: false,
+  };
+}
 
 export default Index;
