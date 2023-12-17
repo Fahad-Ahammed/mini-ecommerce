@@ -1,13 +1,9 @@
-import { Inter } from 'next/font/google'
+import Home from '@/templates/home'
 
-const inter = Inter({ subsets: ['latin'] })
-
-export default function Home() {
+export default function Index() {
   return (
-    <section
-      className={`text-black h-[100vh] mt-[50px] lg:mt-[60px] `}
-    >
-      home page
+    <section className='bg-[#BA0018] mt-[50px] lg:mt-[60px]' >
+      <Home/>
     </section>
   )
 }

@@ -1,25 +1,55 @@
-import React from "react";
-import { FaShoppingCart } from 'react-icons/fa';
+import React, { useState, useRef, useEffect } from "react";
+import { FaShoppingCart } from "react-icons/fa";
+import useOnResize from "@/custom-hooks/useOnResize";
 
-const index = () => {
+const Index = () => {
+  const { width } = useOnResize();
+  const isMobile = width > 1024;
+  const headerRef = useRef(null);
+  const [isScrolling, setScrolling] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolling(window.scrollY > 0);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [isMobile]);
+
   return (
-    <header className="fixed top-0 left-0 w-full bg-white border border-l-0 border-r-0 z-[5]">
+    <header
+      ref={headerRef}
+      className={`fixed top-0 left-0 w-full ${
+        isScrolling ? "bg-white shadow-md " : "bg-[#BA0018]"
+      } duration-300 ease-in-out z-[5]`}
+    >
       <div className="w-[90%] mx-auto max-w-[1300px] ">
         <div className="flex items-center h-[50px] lg:h-[60px] ">
           <div className="w-full flex items-center justify-center">
-            <p className="text-lg" >FSH</p>
+            <p
+              className={`text-lg ${
+                isScrolling ? "text-gray-700" : "text-white "
+              } `}
+            >
+              FSH
+            </p>
             <div className="ml-auto flex gap-x-[10px] items-center justify-end ">
               <form className="max-w-[70%]">
                 <label
                   htmlFor="default-search"
-                  className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white"
+                  className="mb-2 text-sm font-medium text-gray-900 sr-only"
                 >
                   Search
                 </label>
                 <div className="relative">
                   <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
                     <svg
-                      className="w-[12px] h-[12px] text-gray-500 dark:text-gray-400"
+                      className={`"w-[12px] h-[12px] text-whit  ${
+                        isScrolling ? "text-gray-500" : "text-white "
+                      } `}
                       aria-hidden="true"
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"
@@ -27,9 +57,9 @@ const index = () => {
                     >
                       <path
                         stroke="currentColor"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
                         d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
                       />
                     </svg>
@@ -37,16 +67,34 @@ const index = () => {
                   <input
                     type="search"
                     id="default-search"
-                    className={`block w-full p-[5px] ps-8 text-sm text-gray-900 border border-gray-300 rounded-[8px] bg-gray-50 outline-none`}
+                    className={`block w-full p-[5px] ps-8 text-sm  border  rounded-[8px]  outline-none ${
+                      isScrolling
+                        ? "text-gray-900 border-gray-300 bg-gray-50"
+                        : "text-white placeholder:text-white border-white bg-transparent"
+                    } `}
                     placeholder="Search"
                     required
                   />
-
                 </div>
               </form>
-              <div className="relative" >
-                <FaShoppingCart size={25} style={{ fill:'none', stroke: 'black', strokeWidth: 15 }} />
-                <div className="absolute top-[-3px] right-[-5px] w-[15px] h-[15px] rounded-full bg-red-500 text-[9px] leading-[200px] flex justify-center items-center text-white" >5</div>
+              <div className="relative">
+                <FaShoppingCart
+                  size={25}
+                  style={{
+                    fill: "none",
+                    stroke: isScrolling ? "grey" : "white",
+                    strokeWidth: 15,
+                  }}
+                />
+                <div
+                  className={`absolute top-[-3px] right-[-5px] w-[15px] h-[15px] rounded-full text-[9px] leading-[200px] flex justify-center items-center ${
+                    isScrolling
+                      ? "bg-red-500 text-white "
+                      : "text-[#BA0018] bg-white "
+                  }  `}
+                >
+                  5
+                </div>
               </div>
             </div>
           </div>
@@ -56,4 +104,4 @@ const index = () => {
   );
 };
 
-export default index;
+export default Index;
