@@ -27,7 +27,7 @@ const Index = () => {
       } duration-300 ease-in-out z-[5]`}
     >
       <div className="w-[90%] mx-auto max-w-[1300px] ">
-        <div className="flex items-center h-[50px] lg:h-[60px] ">
+        <div className="flex items-center h-[55px] lg:h-[65px] ">
           <div className="w-full flex items-center justify-center">
             <p
               className={`text-lg ${
