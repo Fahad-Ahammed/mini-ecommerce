@@ -8,12 +8,18 @@ import Image from "next/image";
 import useOnResize from "@/custom-hooks/useOnResize";
 import { GetStaticPaths } from "next";
 import products from "@/json/products-details.json";
+import { useDispatch } from "react-redux";
+import { add } from "../../store/cartSlice";
 
 const Index = (props:any) => {
   const { width } = useOnResize();
   const isMobile = width > 767;
   const [showArrow, setShowArrow] = useState(false);
   const product = props?.pageData ?? {}
+  const dispatch = useDispatch();
+  const addToCart = (product: any) => {
+    dispatch(add(product));
+  };
 
   useEffect(() => {
     setShowArrow(isMobile);
@@ -51,7 +57,7 @@ const Index = (props:any) => {
   };
   
   return (
-    <div className="w-[90%] mx-auto max-w-[1300px] py-[30px] md:h-[calc(100vh-55px)]">
+    <div className="w-[90%] mx-auto max-w-[1300px] py-[15px] md:py-[55px]">
       <div className="md:flex gap-x-[30px]">
         <div className="md:w-[50%]">
           <Slider {...settings}>
@@ -94,7 +100,7 @@ const Index = (props:any) => {
             <p className="line-through text-gray-500">{`$${product?.price}`}</p>
             <p className="text-[#BA0018] ">{`(${product?.discountPercentage}% OFF)`}</p>
           </div>
-          <p className="text-[14px] cursor-pointer self-end leading-[28px] xl:hover:bg-[#BA0018] xl:hover:text-white duration-300 w-fi ease-in-out border md:w-fit border-[#BA0018] rounded-md px-[10px] py-[5px] text-center">
+          <p onClick={()=>{addToCart(product)}} className="text-[14px] cursor-pointer self-end leading-[28px] xl:hover:bg-[#BA0018] xl:hover:text-white duration-300 w-fi ease-in-out border md:w-fit border-[#BA0018] rounded-md px-[10px] py-[5px] text-center">
             Buy Now
           </p>
         </div>

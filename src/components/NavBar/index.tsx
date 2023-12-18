@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import Link from "next/link";
 import { searchProducts } from "../../store/productSlice";
 import { useDispatch } from "react-redux";
+import { useRouter } from "next/router";
 
 const Index = () => {
   const { width } = useOnResize();
@@ -14,6 +15,8 @@ const Index = () => {
   const cartProducts = useSelector((state: any) => state?.cart?.products);
   const dispatch = useDispatch();
   const [inputValue, setInputValue] = useState("");
+  const router = useRouter();
+  useEffect(() => {});
 
   const handleInputChange = (e: any) => {
     const value = e.target.value;
@@ -51,47 +54,49 @@ const Index = () => {
               FSH
             </Link>
             <div className="ml-auto flex gap-x-[10px] items-center justify-end ">
-              <form className="max-w-[70%]">
-                <label
-                  htmlFor="default-search"
-                  className="mb-2 text-sm font-medium text-gray-900 sr-only"
-                >
-                  Search
-                </label>
-                <div className="relative">
-                  <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-                    <svg
-                      className={`"w-[12px] h-[12px] text-whit  ${
-                        isScrolling ? "text-gray-500" : "text-white "
+              {router.pathname == "/" && (
+                <form className="max-w-[70%]">
+                  <label
+                    htmlFor="default-search"
+                    className="mb-2 text-sm font-medium text-gray-900 sr-only"
+                  >
+                    Search
+                  </label>
+                  <div className="relative">
+                    <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                      <svg
+                        className={`"w-[12px] h-[12px] text-whit  ${
+                          isScrolling ? "text-gray-500" : "text-white "
+                        } `}
+                        aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 20 20"
+                      >
+                        <path
+                          stroke="currentColor"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
+                        />
+                      </svg>
+                    </div>
+                    <input
+                      type="search"
+                      id="default-search"
+                      onChange={handleInputChange}
+                      className={`block w-full p-[5px] ps-8 text-sm  border  rounded-[8px]  outline-none ${
+                        isScrolling
+                          ? "text-gray-900 border-gray-300 bg-gray-50"
+                          : "text-white placeholder:text-white border-white bg-transparent"
                       } `}
-                      aria-hidden="true"
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 20 20"
-                    >
-                      <path
-                        stroke="currentColor"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
-                      />
-                    </svg>
+                      placeholder="Search"
+                      required
+                    />
                   </div>
-                  <input
-                    type="search"
-                    id="default-search"
-                    onChange={handleInputChange}
-                    className={`block w-full p-[5px] ps-8 text-sm  border  rounded-[8px]  outline-none ${
-                      isScrolling
-                        ? "text-gray-900 border-gray-300 bg-gray-50"
-                        : "text-white placeholder:text-white border-white bg-transparent"
-                    } `}
-                    placeholder="Search"
-                    required
-                  />
-                </div>
-              </form>
+                </form>
+              )}
               <Link href="/cart" className="relative">
                 <FaShoppingCart
                   size={25}

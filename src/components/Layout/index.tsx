@@ -7,7 +7,7 @@ export default function Layout({ children }:any) {
   return (
     <>
       <Navbar />
-      <main className={`mt-[55px] lg:mt-[65px] ${inter.className}`}>{children}</main>
+      <main className={`mt-[55px] lg:mt-[65px] bg-[#f8f8f8] min-h-[calc(100vh-65px)] ${inter.className}`}>{children}</main>
       <Footer />
     </>
   )

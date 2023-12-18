@@ -24,15 +24,15 @@ const Index = () => {
   };
 
   return (
-    <div className="py-[50px] w-[90%] mx-auto max-w-[1300px] ">
+    <div className="py-[40px] w-[90%] mx-auto max-w-[1300px] ">
       {cartProducts?.length > 0 ? (
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-[20px] ">
-          <div className="mb-[40px]  ">
+          <div className="mb-[40px]">
             {cartProducts?.map((product: any, index: any) => {
               return (
                 <div
                   key={index}
-                  className="bg-[#f8f8f8] border flex shadow-lg p-[10px] max-h-[300px] w-full max-w-[500px] cursor-pointer rounded-md overflow-hidden mx-auto mb-[20px] xl:max-h-[200px]"
+                  className="bg-[#f8f8f8] border flex shadow-lg px-[10px] lg:px-[15px] py-[15px] max-h-[300px] w-full max-w-[500px] cursor-pointer rounded-md overflow-hidden mx-auto mb-[20px] xl:max-h-[200px]"
                 >
                   <div className="relative w-[50%] max-w-[100px] h-[100px] ">
                     <Image
@@ -42,7 +42,7 @@ const Index = () => {
                       fill
                     />
                   </div>
-                  <div className="p-[10px] lg:px-[25px] ">
+                  <div className="px-[20px] lg:px-[25px] ">
                     <p className="text-[18px] max-w-[250px] leading-[22px] mb-[10px] lg:mb-[15px] font-[500]">
                       {product?.title}
                     </p>
@@ -82,8 +82,7 @@ const Index = () => {
               );
             })}
           </div>
-
-          <div className=" max-w-[500px] xl:max-w-[700px] mx-auto w-full">
+          <div className="lg:sticky lg:top-[80px] h-fit max-w-[500px] xl:max-w-[700px] mx-auto w-full">
             <p className="text-[18px] leading-[22px] font-[500] mb-[15px] ">
               Order summary
             </p>
@@ -109,7 +108,7 @@ const Index = () => {
           </div>
         </div>
       ) : (
-        <div>no items in the cart</div>
+        <div className="flex justify-center items-center" >No items in the cart</div>
       )}
     </div>
   );
