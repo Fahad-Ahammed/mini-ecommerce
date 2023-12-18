@@ -29,6 +29,10 @@ const cartSlice = createSlice({
       state.totalPrice = calculateTotalPrice(state.products);
     },
 
+    removeAll(state: any, action: any) {
+      state.products = [];
+    },
+
     decrement(state: any, action: any) {
       const product = state?.products?.find(
         (product: any) => product.id === action.payload?.id
@@ -69,5 +73,5 @@ const calculateTotalPrice = (products: any) => {
   return total.toFixed(2);
 };
 
-export const { add, remove, decrement, increment } = cartSlice.actions;
+export const { add, remove, decrement, increment,removeAll } = cartSlice.actions;
 export default cartSlice.reducer;

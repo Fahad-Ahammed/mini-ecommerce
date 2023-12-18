@@ -3,6 +3,7 @@ import { FaTimes } from "react-icons/fa";
 import Image from "next/image";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
+import {useRouter} from 'next/router'
 import { remove, increment, decrement } from "../../store/cartSlice";
 
 const Index = () => {
@@ -10,7 +11,7 @@ const Index = () => {
   const dispatch = useDispatch();
   const totalPrice = useSelector((state: any) => state?.cart?.totalPrice);
   const tax = +(totalPrice * 0.18).toFixed(2);
-
+  const router=useRouter()
   const removeCartProduct = (ProductId: any) => {
     dispatch(remove(ProductId));
   };
@@ -101,14 +102,14 @@ const Index = () => {
                   <p>{(+totalPrice + tax).toFixed(2)}</p>
                 </div>
               </div>
-              <button className="bg-[#BA0018] capitalize w-full rounded-b-md p-[15px] text-white ">
+              <button onClick={()=>router.push('/checkout')} className="bg-[#BA0018]/90 duration-300 ease-in-out hover:bg-[#BA0018] text-[16px] leading-[20px] lg:text-[22px] lg:leading-[28px] font-[500] mt-[10px] capitalize w-full rounded-b-md p-[15px] text-white ">
                 checkout
               </button>
             </div>
           </div>
         </div>
       ) : (
-        <div className="flex justify-center items-center" >No items in the cart</div>
+        <div className="h-[calc(100vh-200px)] flex justify-center items-center" >No items in the cart</div>
       )}
     </div>
   );
