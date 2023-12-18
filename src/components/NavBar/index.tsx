@@ -3,6 +3,8 @@ import { FaShoppingCart } from "react-icons/fa";
 import useOnResize from "@/custom-hooks/useOnResize";
 import { useSelector } from "react-redux";
 import Link from 'next/link';
+import {searchProducts} from '../../store/productSlice'
+import { useDispatch } from "react-redux";
 
 const Index = () => {
   const { width } = useOnResize();
@@ -10,6 +12,14 @@ const Index = () => {
   const headerRef = useRef(null);
   const [isScrolling, setScrolling] = useState(false);
   const cartProducts=useSelector((state:any) =>state.cart);
+  const dispatch = useDispatch();
+  const [inputValue, setInputValue] = useState('');
+
+  const handleInputChange = (e:any) => {
+    const value = e.target.value;
+    setInputValue(value);
+    dispatch(searchProducts(value));
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -32,13 +42,14 @@ const Index = () => {
       <div className="w-[90%] mx-auto max-w-[1300px] ">
         <div className="flex items-center h-[55px] lg:h-[65px] ">
           <div className="w-full flex items-center justify-center">
-            <p
+            <Link
+              href='/'
               className={`text-lg ${
                 isScrolling ? "text-gray-700" : "text-white "
               } `}
             >
               FSH
-            </p>
+            </Link>
             <div className="ml-auto flex gap-x-[10px] items-center justify-end ">
               <form className="max-w-[70%]">
                 <label
@@ -70,6 +81,7 @@ const Index = () => {
                   <input
                     type="search"
                     id="default-search"
+                    onChange={handleInputChange}
                     className={`block w-full p-[5px] ps-8 text-sm  border  rounded-[8px]  outline-none ${
                       isScrolling
                         ? "text-gray-900 border-gray-300 bg-gray-50"
