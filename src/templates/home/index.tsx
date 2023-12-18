@@ -2,10 +2,10 @@ import React from "react";
 import Image from "next/image";
 import products from "@/json/products-details.json";
 import { FaStar } from "react-icons/fa";
-import { GetStaticPaths } from 'next';
-import {useRouter} from 'next/router'
+import { GetStaticPaths } from "next";
+import { useRouter } from "next/router";
 const Index = () => {
-  const router=useRouter();
+  const router = useRouter();
   return (
     <div className={`py-[15px] w-[90%] mx-auto max-w-[1300px] `}>
       <p className="text-sm font-[500] mb-[20px] ">Products</p>
@@ -13,9 +13,9 @@ const Index = () => {
         {products?.map((product: any, index: any) => {
           return (
             <div
-            onClick={()=>{
-              router?.push(`/products/${product?.id}`)
-            }}
+              onClick={() => {
+                router?.push(`/products/${product?.id}`);
+              }}
               key={index}
               className="bg-[#F7F5F2] shadow-lg w-full max-w-[390px] cursor-pointer rounded-md overflow-hidden mx-auto "
             >
@@ -47,7 +47,9 @@ const Index = () => {
                   <p className="line-through text-gray-500">{`$${product?.price}`}</p>
                   <p className="text-[#BA0018] ">{`(${product?.discountPercentage}% OFF)`}</p>
                 </div>
-                <p className="text-[14px] leading-[28px] xl:hover:bg-[#BA0018] xl:hover:text-white duration-300 w-fi ease-in-out border border-[#BA0018] rounded-md px-[10px] py-[5px] text-center " >Add to cart</p>
+                <p className="text-[14px] leading-[28px] xl:hover:bg-[#BA0018] xl:hover:text-white duration-300 w-fi ease-in-out border border-[#BA0018] rounded-md px-[10px] py-[5px] text-center ">
+                  Add to cart
+                </p>
               </div>
             </div>
           );
@@ -57,16 +59,17 @@ const Index = () => {
   );
 };
 
-export const getStaticPaths:GetStaticPaths= async ()=> {
-  const paths = products.map((product: any) => ({
-    params: {
-      id: product?.id.toString(),
-    },
-  })) || [];
+export const getStaticPaths: GetStaticPaths = async () => {
+  const paths =
+    products.map((product: any) => ({
+      params: {
+        id: product?.id.toString(),
+      },
+    })) || [];
   return {
     paths,
     fallback: false,
   };
-}
+};
 
 export default Index;
