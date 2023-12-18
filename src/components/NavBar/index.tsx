@@ -2,8 +2,8 @@ import React, { useState, useRef, useEffect } from "react";
 import { FaShoppingCart } from "react-icons/fa";
 import useOnResize from "@/custom-hooks/useOnResize";
 import { useSelector } from "react-redux";
-import Link from 'next/link';
-import {searchProducts} from '../../store/productSlice'
+import Link from "next/link";
+import { searchProducts } from "../../store/productSlice";
 import { useDispatch } from "react-redux";
 
 const Index = () => {
@@ -11,11 +11,11 @@ const Index = () => {
   const isMobile = width > 1024;
   const headerRef = useRef(null);
   const [isScrolling, setScrolling] = useState(false);
-  const cartProducts=useSelector((state:any) =>state.cart);
+  const cartProducts = useSelector((state: any) => state?.cart?.products);
   const dispatch = useDispatch();
-  const [inputValue, setInputValue] = useState('');
+  const [inputValue, setInputValue] = useState("");
 
-  const handleInputChange = (e:any) => {
+  const handleInputChange = (e: any) => {
     const value = e.target.value;
     setInputValue(value);
     dispatch(searchProducts(value));
@@ -43,7 +43,7 @@ const Index = () => {
         <div className="flex items-center h-[55px] lg:h-[65px] ">
           <div className="w-full flex items-center justify-center">
             <Link
-              href='/'
+              href="/"
               className={`text-lg ${
                 isScrolling ? "text-gray-700" : "text-white "
               } `}
@@ -92,7 +92,7 @@ const Index = () => {
                   />
                 </div>
               </form>
-              <Link href='/cart' className="relative">
+              <Link href="/cart" className="relative">
                 <FaShoppingCart
                   size={25}
                   style={{

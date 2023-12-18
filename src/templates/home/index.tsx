@@ -15,7 +15,7 @@ const Index = () => {
   const products = useSelector((state: any) => state?.filteredProducts);
 
   return (
-    <div className={`py-[15px] w-[90%] mx-auto max-w-[1300px] `}>
+    <div className={`py-[15px] w-[90%] mx-auto max-w-[1300px] min-h-[calc(100vh-100px)] `}>
       <p className="text-sm font-[500] mb-[20px] ">Products</p>
       {products?.length > 0 ? (
         <div className="grid grid-cols-1 gap-y-[20px] sm:grid-cols-2 sm:gap-x-[20px] md:grid-cols-3 lg:grid-cols-4  ">
