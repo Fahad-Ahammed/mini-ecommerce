@@ -6,6 +6,8 @@ import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import { FaStar } from "react-icons/fa";
 import Image from "next/image";
 import useOnResize from "@/custom-hooks/useOnResize";
+import { GetStaticPaths } from "next";
+import products from "@/json/products-details.json";
 
 const Index = () => {
   const { width } = useOnResize();
@@ -122,6 +124,19 @@ const Index = () => {
       </div>
     </div>
   );
+};
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  const paths =
+    products.map((product: any) => ({
+      params: {
+        id: product?.id.toString(),
+      },
+    })) || [];
+  return {
+    paths,
+    fallback: false,
+  };
 };
 
 export default Index;

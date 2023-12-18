@@ -1,12 +1,15 @@
 import React, { useState, useRef, useEffect } from "react";
 import { FaShoppingCart } from "react-icons/fa";
 import useOnResize from "@/custom-hooks/useOnResize";
+import { useSelector } from "react-redux";
+import Link from 'next/link';
 
 const Index = () => {
   const { width } = useOnResize();
   const isMobile = width > 1024;
   const headerRef = useRef(null);
   const [isScrolling, setScrolling] = useState(false);
+  const cartProducts=useSelector((state:any) =>state.cart);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -77,7 +80,7 @@ const Index = () => {
                   />
                 </div>
               </form>
-              <div className="relative">
+              <Link href='/cart' className="relative">
                 <FaShoppingCart
                   size={25}
                   style={{
@@ -93,9 +96,9 @@ const Index = () => {
                       : "text-[#BA0018] bg-white "
                   }  `}
                 >
-                  5
+                  {cartProducts?.length}
                 </div>
-              </div>
+              </Link>
             </div>
           </div>
         </div>
