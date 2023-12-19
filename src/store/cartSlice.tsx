@@ -31,6 +31,7 @@ const cartSlice = createSlice({
 
     removeAll(state: any, action: any) {
       state.products = [];
+      state.totalPrice = 0;
     },
 
     decrement(state: any, action: any) {

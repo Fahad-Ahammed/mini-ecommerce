@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import { FaShoppingCart } from "react-icons/fa";
-import useOnResize from "@/custom-hooks/useOnResize";
+import useOnResize from "@/utils/custom-hooks/useOnResize";
 import { useSelector } from "react-redux";
 import Link from "next/link";
 import { searchProducts } from "../../store/productSlice";

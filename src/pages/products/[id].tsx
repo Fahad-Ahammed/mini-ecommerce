@@ -5,17 +5,17 @@ import "slick-carousel/slick/slick-theme.css";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import { FaStar } from "react-icons/fa";
 import Image from "next/image";
-import useOnResize from "@/custom-hooks/useOnResize";
+import useOnResize from "@/utils/custom-hooks/useOnResize";
 import { GetStaticPaths } from "next";
 import products from "@/json/products-details.json";
 import { useDispatch } from "react-redux";
 import { add } from "../../store/cartSlice";
 
-const Index = (props:any) => {
+const Index = (props: any) => {
   const { width } = useOnResize();
   const isMobile = width > 767;
   const [showArrow, setShowArrow] = useState(false);
-  const product = props?.pageData ?? {}
+  const product = props?.content?.pageData ?? {};
   const dispatch = useDispatch();
   const addToCart = (product: any) => {
     dispatch(add(product));
@@ -55,7 +55,7 @@ const Index = (props:any) => {
     nextArrow: <NextArrow />,
     prevArrow: <PrevArrow />,
   };
-  
+
   return (
     <div className="w-[90%] mx-auto max-w-[1300px] py-[15px] md:py-[55px]">
       <div className="md:flex gap-x-[30px]">
@@ -67,7 +67,12 @@ const Index = (props:any) => {
                   className="shadow-md w-full h-[360px] border relative rounded-md overflow-hidden"
                   key={index}
                 >
-                  <Image className="object-contain " src={image} alt="alt" fill />
+                  <Image
+                    className="object-contain "
+                    src={image}
+                    alt="alt"
+                    fill
+                  />
                 </div>
               );
             })}
@@ -100,7 +105,12 @@ const Index = (props:any) => {
             <p className="line-through text-gray-500">{`$${product?.price}`}</p>
             <p className="text-[#BA0018] ">{`(${product?.discountPercentage}% OFF)`}</p>
           </div>
-          <p onClick={()=>{addToCart(product)}} className="text-[14px] cursor-pointer self-end leading-[28px] xl:hover:bg-[#BA0018] xl:hover:text-white duration-300 w-fi ease-in-out border md:w-fit border-[#BA0018] rounded-md px-[10px] py-[5px] text-center">
+          <p
+            onClick={() => {
+              addToCart(product);
+            }}
+            className="text-[14px] cursor-pointer self-end leading-[28px] xl:hover:bg-[#BA0018] xl:hover:text-white duration-300 w-fi ease-in-out border md:w-fit border-[#BA0018] rounded-md px-[10px] py-[5px] text-center"
+          >
             Buy Now
           </p>
         </div>
@@ -113,12 +123,20 @@ export const getStaticProps = async (context: any) => {
   const productId = context?.params?.id;
   if (!productId) return false;
 
-  const filteredProduct = products?.filter((product: any, index: any) => {
+  const filteredProduct: any = products?.filter((product: any, index: any) => {
     return product?.id == productId;
   });
+  const seo = {
+    title: `FSH | ${filteredProduct[0]?.title}` ?? "",
+    description: filteredProduct[0]?.description ?? "",
+  };
+  const content = {
+    pageData: filteredProduct[0],
+    seo,
+  };
 
   return {
-    props: { pageData:filteredProduct[0] },
+    props: { content },
   };
 };
 
