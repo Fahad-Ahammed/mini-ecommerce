@@ -1,6 +1,6 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+VIew Project: https://mini-ecommerce-vercel.vercel.app/
 
-## Getting Started
+Built using: Nextjs, Tailwind Css, Redux
 
 First, run the development server:
 
